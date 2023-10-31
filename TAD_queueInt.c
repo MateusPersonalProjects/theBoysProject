@@ -1,16 +1,7 @@
-#include <stdbool.h>
-#include <stdio.h>
-
-#define TAM 100
-
-// Define a estrutura da fila
-struct queue {
-  int end;
-  int line[TAM];
-};
+#include "TAD_queueInt.h"
 
 // Returna true caso a fila esteja cheia, caso nao esteja retorna falso
-bool isFilled(struct queue *queue) {
+bool isFilledQ(struct queue *queue) {
   if (queue->end == TAM)
     return true;
   else
@@ -18,7 +9,7 @@ bool isFilled(struct queue *queue) {
 }
 
 // Retorna true caso a fila esteja vazia, caso nao esteja retorna falso
-bool isEmpty(struct queue *queue) {
+bool isEmptyQ(struct queue *queue) {
   if (queue->end == 0)
     return true;
   else
@@ -26,8 +17,8 @@ bool isEmpty(struct queue *queue) {
 }
 
 // Adiciona um novo item na fila
-bool emplace(struct queue *queue, int member) {
-  if (isFilled(queue))
+bool emplaceQ(struct queue *queue, int member) {
+  if (isFilledQ(queue))
     return false;
   else {
     queue->line[queue->end] = member;
@@ -37,8 +28,8 @@ bool emplace(struct queue *queue, int member) {
 }
 
 // Retira um item da fila e o retorna em *member
-bool displace(struct queue *queue, int *member) {
-  if (isEmpty(queue)) {
+bool displaceQ(struct queue *queue, int *member) {
+  if (isEmptyQ(queue)) {
     member = NULL;
     return false;
   } else {
@@ -60,8 +51,8 @@ bool displace(struct queue *queue, int *member) {
 }
 
 // Retorna o primeiro item da fila em *member
-bool showFront(struct queue *queue, int *member) {
-  if (isEmpty(queue))
+bool showFrontQ(struct queue *queue, int *member) {
+  if (isEmptyQ(queue))
     return false;
   else {
     *member = queue->line[0];
@@ -70,12 +61,12 @@ bool showFront(struct queue *queue, int *member) {
 }
 
 // Permite adicionar um novo item em qualquer posição da fila
-bool jumpLine(struct queue *queue, int member, int position) {
-  if (isFilled(queue))
+bool jumpLineQ(struct queue *queue, int member, int position) {
+  if (isFilledQ(queue))
     return false;
 
-  else if (isEmpty(queue) || position > queue->end) {
-    emplace(queue, member);
+  else if (isEmptyQ(queue) || position > queue->end) {
+    emplaceQ(queue, member);
     return true;
   }
 
@@ -97,21 +88,3 @@ bool jumpLine(struct queue *queue, int member, int position) {
     return true;
   }
 }
-
-// int main(void) {
-//   struct queue kleber;
-//   kleber.end = 0;
-
-//   int member;
-
-//   for (int i = 0; i < 10; i++) emplace(&kleber, 0 + i);
-
-//   jumpLine(&kleber, 99, 10);
-
-//   for (int i = 0; i < 11; i++) {
-//     displace(&kleber, &member);
-//     printf("%d ", member);
-//   }
-
-//   return 0;
-// }

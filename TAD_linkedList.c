@@ -1,20 +1,6 @@
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "TAD_linkedList.h"
 
-// Define a estrutura de Nodos da Lista Encadeada
-typedef struct Node {
-  int data;
-  struct Node *next;
-} Node;
-
-// Define a cabeça da lista encadeada
-typedef struct LinkedList {
-  int size;
-  struct Node *start;
-} LinkedList;
-
-bool inicializar(LinkedList **head) {
+bool inicializarLL(LinkedList **head) {
   *head = (LinkedList *)malloc(sizeof(LinkedList));
   if (*head != NULL) {
     (*head)->size = 0;
@@ -27,13 +13,13 @@ bool inicializar(LinkedList **head) {
 
 // Verifica se a lista encadeada esta vazia
 // Retorna true caso esteja, caso não esteja retorna false
-bool isEmpty(LinkedList *head) {
+bool isEmptyLL(LinkedList *head) {
   if (head->start == NULL) return true;
   return false;
 }
 
 // Insere um elemento no fim da lista duplamente encadeada
-void insertEnd(LinkedList **head, int element) {
+void insertEndLL(LinkedList **head, int element) {
   Node *auxNode, *new;
 
   // Cria um novo nodo para ser inserido
@@ -46,7 +32,7 @@ void insertEnd(LinkedList **head, int element) {
   new->next = NULL;
 
   // Caso a lista esteja vazia atribui o novo nodo ao inicio
-  if (isEmpty(*head)) {
+  if (isEmptyLL(*head)) {
     (*head)->start = new;
   } else {
     auxNode = (*head)->start;
@@ -58,7 +44,7 @@ void insertEnd(LinkedList **head, int element) {
 
 // Printa toda a lista encadeada na tela
 void displayLL(LinkedList *head) {
-  if (!isEmpty(head)) {
+  if (!isEmptyLL(head)) {
     Node *auxNode;
     auxNode = head->start;
     while (auxNode->next != NULL) {
@@ -72,8 +58,8 @@ void displayLL(LinkedList *head) {
 
 /* Procura um elemento na lista linkada
  Retorna true caso tenha encontrado e false caso não */
-bool search(LinkedList *head, int element, Node **result) {
-  if (!isEmpty(head)) {
+bool searchLL(LinkedList *head, int element, Node **result) {
+  if (!isEmptyLL(head)) {
     Node *auxNode;
     auxNode = head->start;
     for (int i = 0; i < (head->size); i++) {
@@ -91,7 +77,7 @@ bool search(LinkedList *head, int element, Node **result) {
 }
 
 // Deleta um node da lista duplamente encadeada
-void deleteNode(LinkedList *head, Node *node) {
+void deleteNodeLL(LinkedList *head, Node *node) {
   Node *aux, *auxTwo;
 
   if (head->start == node)
@@ -129,7 +115,7 @@ bool minLL(Node *inicio, Node **returning) {
 }
 
 // Função de swap para lista encadeada
-void swap(LinkedList *head, Node *one, Node *two) {
+void swapLL(LinkedList *head, Node *one, Node *two) {
   Node *tempOne, *tempTwo, *aux;
   tempOne = tempTwo = head->start;
 
@@ -167,32 +153,6 @@ void sortLL(LinkedList *head) {
   for (count = 0; count < head->size; count++) {
     aux = head->start;
     for (int i = 0; i < count; i++) aux = aux->next;
-    if (minLL(aux, &min)) swap(head, aux, min);
+    if (minLL(aux, &min)) swapLL(head, aux, min);
   }
-}
-
-/* ---------------- EXEMPLO DE USO DA BIBLIOTECA ------------ */
-
-int main(void) {
-  LinkedList *listOne;
-  Node *aux;
-  int num;
-  inicializar(&listOne);
-
-  printf(
-      "Para demonstração de funcionamento da lista duplamente encadeada digite "
-      "10 valores: ");
-  for (int i = 0; i < 10; i++) {
-    scanf("%d", &num);
-    insertEnd(&listOne, num);
-  }
-  if (minLL(listOne->start, &aux))
-    printf("Minimo: %d\n", aux->data);
-  else
-    printf("Not found!\n");
-  deleteNode(listOne, aux);
-
-  sortLL(listOne);
-  displayLL(listOne);
-  free(listOne);
 }
