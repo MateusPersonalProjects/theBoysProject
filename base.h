@@ -1,9 +1,11 @@
+#include "TAD_queueInt.h"
+#include "TAD_set.h"
 
-struct base{
+typedef struct base{
   int id;
   int lotacao;
-  LinkedList presentes;
-  Queue fila;
+  LinkedList presentes; // Conjunto
+  struct queue fila;
   int local[2];
 }Base;
 

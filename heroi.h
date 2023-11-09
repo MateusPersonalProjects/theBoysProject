@@ -1,14 +1,16 @@
 #include "TAD_set.h"
 
 
-struct heroi{
+typedef struct heroi{
   int id;
   LinkedList habilidade; // É UM CONJUNTO
   int paciencia;
   int velocidade;
   int exp;
-  int baseId;
+  int baseID;
 }Heroi;
+
+void chega;
 
 void entra;
 
