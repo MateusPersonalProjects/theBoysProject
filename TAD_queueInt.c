@@ -1,8 +1,19 @@
 #include "TAD_queueInt.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+
+bool startQueue(Queue **line, int tam) {
+  *line = (Queue *)malloc(sizeof(Queue));
+  if (*line == NULL) return false;
+
+  (*line)->line = (int *)malloc(tam * sizeof(int));
+  return true;
+}
+
 // Returna true caso a fila esteja cheia, caso nao esteja retorna falso
-bool isFilledQ(struct queue *queue) {
-  if (queue->end == TAM)
+bool isFilledQ(struct queue *queue, int tam) {
+  if (queue->end == tam)
     return true;
   else
     return false;
@@ -17,8 +28,8 @@ bool isEmptyQ(struct queue *queue) {
 }
 
 // Adiciona um novo item na fila
-bool emplaceQ(struct queue *queue, int member) {
-  if (isFilledQ(queue))
+bool emplaceQ(struct queue *queue, int member, int tam) {
+  if (isFilledQ(queue, tam))
     return false;
   else {
     queue->line[queue->end] = member;
@@ -61,12 +72,12 @@ bool showFrontQ(struct queue *queue, int *member) {
 }
 
 // Permite adicionar um novo item em qualquer posição da fila
-bool jumpLineQ(struct queue *queue, int member, int position) {
-  if (isFilledQ(queue))
+bool jumpLineQ(struct queue *queue, int member, int position, int tam) {
+  if (isFilledQ(queue, tam))
     return false;
 
   else if (isEmptyQ(queue) || position > queue->end) {
-    emplaceQ(queue, member);
+    emplaceQ(queue, member, tam);
     return true;
   }
 
@@ -88,3 +99,14 @@ bool jumpLineQ(struct queue *queue, int member, int position) {
     return true;
   }
 }
+
+// int main(void) {
+//   Queue *fila;
+
+//   startQueue(&fila, 10);
+
+//   for (int i = 0; i < 10; i++) emplaceQ(fila, i);
+//   for (int i = 0; i < 10; i++) printf("%d ", fila->line[i]);
+
+//   return 0;
+// }

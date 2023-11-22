@@ -1,5 +1,14 @@
 #include "TAD_set.h"
 
+#include <stdlib.h>
+
+bool startSet(Set **conjunto) {
+  *conjunto = (Set *)malloc(sizeof(Set));
+  if (*conjunto == NULL) return false;
+  inicializarLL(&(*conjunto)->elementos);
+  return true;
+}
+
 // Realiza a união entre os conjuntos e o salv em result
 bool uniao(LinkedList *listOne, LinkedList *listTwo, LinkedList *result) {
   Node *aux, *searched;
@@ -91,3 +100,18 @@ bool duplicado(LinkedList *list) {
   }
   return status;
 }
+
+// int main(void) {
+//   Set *conjunto1, *conjunto2;
+
+//   startSet(&conjunto1);
+//   startSet(&conjunto2);
+
+//   for (int i = 0; i <= 10; i++) insertEndLL(&(conjunto1->elementos), i);
+//   for (int i = 5; i <= 10; i++) insertEndLL(&(conjunto2->elementos), i);
+
+//   displayLL(conjunto1->elementos);
+//   displayLL(conjunto2->elementos);
+
+//   return 0;
+// }

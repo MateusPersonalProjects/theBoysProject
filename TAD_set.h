@@ -4,6 +4,11 @@
 
 #include "TAD_linkedList.h"
 
+typedef struct set{
+  LinkedList *elementos;
+} Set;
+
+bool startSet(Set **conjunto);
 // Realiza a união entre os conjuntos e o salv em result
 bool uniao(LinkedList *listOne, LinkedList *listTwo, LinkedList *result);
 

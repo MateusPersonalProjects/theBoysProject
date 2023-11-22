@@ -1,21 +1,20 @@
 #include <stdbool.h>
-#include <stdio.h>
 
-#define TAM 100
-
-struct queue {
+typedef struct queue {
   int end;
-  int line[TAM];
-};
+  int *line;
+} Queue;
 
-bool isFilledQ(struct queue *queue);
+bool startQueue(Queue **line, int tam);
+
+bool isFilledQ(struct queue *queue, int tam);
 
 bool isEmptyQ(struct queue *queue);
 
-bool emplaceQ(struct queue *queue, int member);
+bool emplaceQ(struct queue *queue, int member, int tam);
 
 bool displaceQ(struct queue *queue, int *member);
 
 bool showFrontQ(struct queue *queue, int *member);
 
-bool jumpLineQ(struct queue *queue, int member, int position);
+bool jumpLineQ(struct queue *queue, int member, int position, int tam);
