@@ -127,62 +127,62 @@ bool startMundo(Mundo **mundo) {
   return true;
 }
 
-int main(void) {
-  // ------------------ Teste Herois --------------------
-  // Heroi *osHerois[N_HEROIS];
+// int main(void) {
+//   // ------------------ Teste Herois --------------------
+//   // Heroi *osHerois[N_HEROIS];
 
-  srand(time(NULL));
-  // for (int i = 0; i < N_HEROIS; i++) {
-  //   startHeroi(&osHerois[i], i);
-  //   printf("Heroi: %d Habilidades: ", osHerois[i]->id);
+//   srand(time(NULL));
+//   // for (int i = 0; i < N_HEROIS; i++) {
+//   //   startHeroi(&osHerois[i], i);
+//   //   printf("Heroi: %d Habilidades: ", osHerois[i]->id);
 
-  //   displayLL(osHerois[i]->habilidade->elementos);
-  //   printf("\n");
-  // }
+//   //   displayLL(osHerois[i]->habilidade->elementos);
+//   //   printf("\n");
+//   // }
 
-  // // -------------------- Teste Bases --------------------
-  // Base *asBases[N_BASES];
+//   // // -------------------- Teste Bases --------------------
+//   // Base *asBases[N_BASES];
 
-  // for (int i = 0; i < N_BASES; i++) {
-  //   startBase(&asBases[i], i);
-  //   printf("Base: %d Localização X: %d Y: %d \n", asBases[i]->id,
-  //          asBases[i]->local[0], asBases[i]->local[1]);
-  // }
+//   // for (int i = 0; i < N_BASES; i++) {
+//   //   startBase(&asBases[i], i);
+//   //   printf("Base: %d Localização X: %d Y: %d \n", asBases[i]->id,
+//   //          asBases[i]->local[0], asBases[i]->local[1]);
+//   // }
 
-  // // ------------------- Teste Missoes ---------------------
-  // Missao *asMissoes[N_MISSOES];
+//   // // ------------------- Teste Missoes ---------------------
+//   // Missao *asMissoes[N_MISSOES];
 
-  // for (int i = 0; i < N_MISSOES; i++) {
-  //   startMissao(&asMissoes[i], i);
-  //   printf("Missao: %d Localização: (%d, %d) Habilidades: ",
-  //   asMissoes[i]->id,
-  //          asMissoes[i]->local[0], asMissoes[i]->local[1]);
-  //   displayLL(asMissoes[i]->habilidades->elementos);
-  //   printf("\n");
-  // }
+//   // for (int i = 0; i < N_MISSOES; i++) {
+//   //   startMissao(&asMissoes[i], i);
+//   //   printf("Missao: %d Localização: (%d, %d) Habilidades: ",
+//   //   asMissoes[i]->id,
+//   //          asMissoes[i]->local[0], asMissoes[i]->local[1]);
+//   //   displayLL(asMissoes[i]->habilidades->elementos);
+//   //   printf("\n");
+//   // }
 
-  Mundo *oMundo;
-  startMundo(&oMundo);
+//   Mundo *oMundo;
+//   startMundo(&oMundo);
 
-  for (int i = 0; i < oMundo->nHerois; i++) {
-    printf("Heroi: %d Habilidades: ", oMundo->Herois[i]->id);
+//   for (int i = 0; i < oMundo->nHerois; i++) {
+//     printf("Heroi: %d Habilidades: ", oMundo->Herois[i]->id);
 
-    displayLL(oMundo->Herois[i]->habilidade->elementos);
-    printf("\n");
-  }
+//     displayLL(oMundo->Herois[i]->habilidade->elementos);
+//     printf("\n");
+//   }
 
-  for (int i = 0; i < oMundo->nBases; i++) {
-    printf("Base: %d Localização X: %d Y: %d \n", oMundo->bases[i]->id,
-           oMundo->bases[i]->local[0], oMundo->bases[i]->local[1]);
-  }
+//   for (int i = 0; i < oMundo->nBases; i++) {
+//     printf("Base: %d Localização X: %d Y: %d \n", oMundo->bases[i]->id,
+//            oMundo->bases[i]->local[0], oMundo->bases[i]->local[1]);
+//   }
 
-  for (int i = 0; i < oMundo->nMissoes; i++) {
-    printf("Missao: %d Localização: (%d, %d) Habilidades: ",
-           oMundo->missoes[i]->id, oMundo->missoes[i]->local[0],
-           oMundo->missoes[i]->local[1]);
-    displayLL(oMundo->missoes[i]->habilidades->elementos);
-    printf("\n");
-  }
+//   for (int i = 0; i < oMundo->nMissoes; i++) {
+//     printf("Missao: %d Localização: (%d, %d) Habilidades: ",
+//            oMundo->missoes[i]->id, oMundo->missoes[i]->local[0],
+//            oMundo->missoes[i]->local[1]);
+//     displayLL(oMundo->missoes[i]->habilidades->elementos);
+//     printf("\n");
+//   }
 
-  return 0;
-}
+//   return 0;
+// }
