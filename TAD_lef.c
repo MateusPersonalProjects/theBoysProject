@@ -33,37 +33,42 @@ bool isEmptyLef(Lef *lef) {
   return false;
 }
 
-void insertEventLef(Lef **lef, Evento **evento) {
+void insertEventLef(Lef **lef, Evento *evento) {
   Evento *aux, *auxProx;
   // Caso a Lef esteja vazia, o evento é inserido no inicio
   if (isEmptyLef((*lef)))
-    (*lef)->inicio = *evento;
+    (*lef)->inicio = evento;
   else {
     aux = (*lef)->inicio;
 
     // Tratando caso do inicio
-    if ((*evento)->tempo <= aux->tempo) {
-      (*lef)->inicio = *evento;
-      (*evento)->prox = aux;
+    if (evento->tempo <= aux->tempo) {
+      (*lef)->inicio = evento;
+      evento->prox = aux;
     }
 
-    while (((*evento)->tempo < aux->prox->tempo) && (aux->prox != NULL)) {
-      aux = aux->prox;
-    }
-    if (aux->prox == NULL)
-      aux->prox = *evento;
     else {
-      auxProx = aux->prox;
-      aux->prox = *evento;
-      (*evento)->prox = auxProx;
+      while ((aux->prox != NULL) && (evento->tempo < (aux->prox)->tempo)) {
+        aux = aux->prox;
+      }
+      if (aux->prox == NULL)
+        aux->prox = evento;
+      else {
+        auxProx = aux->prox;
+        aux->prox = evento;
+        evento->prox = auxProx;
+      }
     }
   }
   (*lef)->tam++;
 }
 
 // Deleta o primeiro evento da Lef
-void deleteEvent(Lef **lef) {
+// Retorna true se foi possivel deletar o evento
+// Se não retorna false
+bool deleteEvent(Lef **lef) {
   Evento *aux, *toClean;
+  if (isEmptyLef(*lef)) return false;
 
   toClean = (*lef)->inicio;
 
@@ -74,16 +79,26 @@ void deleteEvent(Lef **lef) {
   // Limpo da memoria o evento que era o primeiro
   toClean = NULL;
   free(toClean);
+  return true;
 }
 
 int main(void) {
   Lef *lista;
-  Evento *eventos[10], *aux;
+  Evento *eventos[10], *aux, *aux2;
 
   inicializarLef(&lista);
+  // inicializarEvento(&aux, 3, 2);
+
+  // insertEventLef(&lista, aux);
+
+  // inicializarEvento(&aux2, 2, 2);
+
+  // insertEventLef(&lista, aux2);
+
+  printf("%d %d", lista->inicio->tempo, lista->inicio->tipo);
   for (int i = 0; i < 10; i++) {
     inicializarEvento(&eventos[i], i * 2, i);
-    insertEventLef(&lista, &eventos[i]);
+    insertEventLef(&lista, eventos[i]);
   }
 
   aux = lista->inicio;
