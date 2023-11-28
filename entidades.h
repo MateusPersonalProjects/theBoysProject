@@ -33,6 +33,7 @@ typedef struct base {
 
 bool startBase(Base **base, int id);
 
+bool baseCheia(Base *b);
 // -------------------------- DEFINE A ENTIDADE MISSAO -------------------------
 typedef struct missao {
   int id;
@@ -40,7 +41,7 @@ typedef struct missao {
   int local[2];
 } Missao;
 
-bool startBase(Base **base, int id);
+bool startMissao(Missao **missao, int id);
 
 // ----------------------- DEFINE A ENTIDADE MUNDO -----------------------------
 typedef struct mundo {

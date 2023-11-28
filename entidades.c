@@ -54,6 +54,7 @@ bool startBase(Base **base, int id) {
   (*base)->id = id;
   (*base)->local[0] = randomInteger(0, N_TAMANHO_MUNDO - 1);
   (*base)->local[1] = randomInteger(0, N_TAMANHO_MUNDO - 1);
+  (*base)->lotacao = randomInteger(3, 10);
 
   // Inicializa o conjunto de herois dentro da base
   if (!startSet(&inside)) return false;
@@ -63,6 +64,12 @@ bool startBase(Base **base, int id) {
   (*base)->presentes = inside;
   (*base)->fila = line;
   return true;
+}
+
+// Retorna true caso a base esteja cheia, caso contrario retorna false
+bool baseCheia(Base *b) {
+  if (b->lotacao == b->presentes->elementos->size) return true;
+  return false;
 }
 
 /*

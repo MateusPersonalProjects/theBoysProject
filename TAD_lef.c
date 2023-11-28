@@ -33,6 +33,7 @@ bool isEmptyLef(Lef *lef) {
   return false;
 }
 
+// Insere um evento de forma ordenada na Lef
 void insertEventLef(Lef **lef, Evento *evento) {
   Evento *aux, *auxProx;
   // Caso a Lef esteja vazia, o evento é inserido no inicio
