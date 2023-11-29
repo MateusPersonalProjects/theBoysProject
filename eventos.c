@@ -1,5 +1,4 @@
 #include "eventos.h"
-
 /*
   Função chega retorna um evento
   Verifica se é possivel entrar em uma base
@@ -20,6 +19,7 @@ Evento *chega(int t, Heroi *h, Base *b) {
     inicializarEvento(&proxEvento, t, 1);
     proxEvento->heroi = h;
     proxEvento->base = b;
+    h->baseID = b->id;
     // Caso contrario cria-se o evento desiste
   } else {
     inicializarEvento(&proxEvento, t, 2);
@@ -125,4 +125,19 @@ Evento *sai(int t, Heroi *h, Base *b, Mundo *world, Evento *extra) {
   return proxEventoV;
 }
 
-void viaja(int t, Heroi *h, Base *b) {}
+// Função viaja retorna um evento
+Evento *viaja(int t, Heroi *h, Base *d, Mundo *world) {
+  Evento *proxEvento;
+  int distancia, duracao;
+
+  // Calcula a distancia cartesiana entre duas bases
+  distancia = distCart(world->bases[h->baseID], d);
+  duracao = distancia / h->velocidade;
+
+  // inicializa o proximo evento chega
+  inicializarEvento(&proxEvento, t + duracao, 0);
+  proxEvento->heroi = h;
+  proxEvento->base = d;
+
+  return proxEvento;
+}

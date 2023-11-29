@@ -1,6 +1,7 @@
 #include "TAD_queueInt.h"
 #include "TAD_set.h"
 #include "misc.h"
+#include <time.h>
 
 #define T_INICIO 0
 #define T_FIM_DO_MUNDO 525600
@@ -34,6 +35,8 @@ typedef struct base {
 bool startBase(Base **base, int id);
 
 bool baseCheia(Base *b);
+
+int distCart(Base *b, Base *d);
 // -------------------------- DEFINE A ENTIDADE MISSAO -------------------------
 typedef struct missao {
   int id;

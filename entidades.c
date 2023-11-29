@@ -1,5 +1,6 @@
 #include "entidades.h"
 
+#include <math.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
@@ -72,6 +73,14 @@ bool baseCheia(Base *b) {
   return false;
 }
 
+// Retorna a distancia cartesiana entre duas bases
+int distCart(Base *b, Base *d) {
+  int distancia;
+  int xB = b->local[0], xD = d->local[0], yB = b->local[1], yD = d->local[1];
+
+  distancia = sqrt(((xD - xB) * (xD - xB)) + ((yD - yB) * (yD - yB)));
+  return distancia;
+}
 /*
  * Inicializa uma missao
  * Retorna true se foi possivel alocar memória, se não retorna false
