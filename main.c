@@ -3,12 +3,16 @@
 int main(void) {
   srand(time(NULL));
 
+  /* --------------- GENESIS DO MUNDO ------------------------ */
+
+  // Cria-se o mundo e o inicializa
   Mundo *mundo;
   if (!startMundo(&mundo)) {
     printf("Erro Fatal! Impossivel alocar memória.\n");
     return 1;
   }
 
+  // Cria-se a LEF e a inicializa
   Lef *eventosFuturos;
   if (!inicializarLef(&eventosFuturos)) {
     printf("Erro Fatal! Impossivel alocar memória.\n");
@@ -32,6 +36,9 @@ int main(void) {
     int tipoEvento = eventosFuturos->inicio->tipo;
     Evento *proxEvent, *proxEventExtra;
 
+    Base *avisaBase;
+
+    printf("HELP %d:", relogioAtual);
     switch (tipoEvento) {
       // Trata evento chega
       case 0:
@@ -55,19 +62,41 @@ int main(void) {
         break;
       // Trata evento avisa
       case 3:
+        // A base precisa ser guardada uma vez que terei que deletar o evento
+        // para inserir os proximos
+        avisaBase = eventosFuturos->inicio->base;
+        deleteEvent(&eventosFuturos);
+        while (!baseCheia(avisaBase) && !isEmptyQ(avisaBase->fila)) {
+          proxEvent = avisa(relogioAtual, avisaBase, mundo);
+          insertEventLef(&eventosFuturos, proxEvent);
+        }
         break;
       // Trata evento entra
       case 4:
+        proxEvent = entra(relogioAtual, eventosFuturos->inicio->heroi,
+                          eventosFuturos->inicio->base);
+        deleteEvent(&eventosFuturos);
+        insertEventLef(&eventosFuturos, proxEvent);
         break;
       // Trata evento sai
       case 5:
+        proxEvent = sai(relogioAtual, eventosFuturos->inicio->heroi,
+                        eventosFuturos->inicio->base, mundo, proxEventExtra);
+        deleteEvent(&eventosFuturos);
+        insertEventLef(&eventosFuturos, proxEvent);
+        insertEventLef(&eventosFuturos, proxEventExtra);
         break;
       // Trata evento viaja
       case 6:
+        proxEvent = viaja(relogioAtual, eventosFuturos->inicio->heroi,
+                          eventosFuturos->inicio->base, mundo);
+        deleteEvent(&eventosFuturos);
+        insertEventLef(&eventosFuturos, proxEvent);
         break;
     }
     if (eventosFuturos->inicio->tempo != relogioAtual) relogioAtual++;
   }
+  printf("RODOU!\n");
 
   return 0;
 }
