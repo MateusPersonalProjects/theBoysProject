@@ -8,6 +8,7 @@ bool startQueue(Queue **line, int tam) {
   if (*line == NULL) return false;
 
   (*line)->line = (int *)malloc(tam * sizeof(int));
+  (*line)->end = 0;
   return true;
 }
 
@@ -61,6 +62,10 @@ bool displaceQ(struct queue *queue, int *member) {
   }
 }
 
+// Mostra a fila na tela
+void displayQ(struct queue *queue) {
+  for (int i = 0; i < queue->end; i++) printf("%2d ", queue->line[i]);
+}
 // Retorna o primeiro item da fila em *member
 bool showFrontQ(struct queue *queue, int *member) {
   if (isEmptyQ(queue))
@@ -105,8 +110,7 @@ bool jumpLineQ(struct queue *queue, int member, int position, int tam) {
 
 //   startQueue(&fila, 10);
 
-//   for (int i = 0; i < 10; i++) emplaceQ(fila, i);
-//   for (int i = 0; i < 10; i++) printf("%d ", fila->line[i]);
-
+//   for (int i = 0; i < 10; i++) emplaceQ(fila, i, 10);
+//   displayQ(fila);
 //   return 0;
 // }

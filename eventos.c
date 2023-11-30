@@ -1,4 +1,6 @@
 #include "eventos.h"
+
+#include <stdlib.h>
 /*
   Função chega retorna um evento
   Verifica se é possivel entrar em uma base
@@ -12,7 +14,7 @@ Evento *chega(int t, Heroi *h, Base *b) {
   if (!baseCheia(b) && isEmptyQ(b->fila)) espera = true;
   // Caso contrario verifica se o heroi possui paciencia para aguardar na fila
   else
-    espera = ((h->paciencia) > (10 * (b->fila->end) + 1));
+    espera = ((h->paciencia) > (10 * (b->fila->end)));
 
   // Caso espera true criamos o evento espera
   if (espera) {
@@ -66,6 +68,8 @@ Evento *avisa(int t, Base *b, Mundo *world) {
   int *idHeRetirado;
   Heroi *hRetirado;
 
+  idHeRetirado = (int *)malloc(sizeof(int));
+
   // Retira-se heroi da fila da base b
   displaceQ(b->fila, idHeRetirado);
   // Identificamos quem é o heroi apartir de seu id
@@ -96,7 +100,7 @@ Evento *entra(int t, Heroi *h, Base *b) {
   return proxEvento;
 }
 
-Evento *sai(int t, Heroi *h, Base *b, Mundo *world, Evento *extra) {
+Evento *sai(int t, Heroi *h, Base *b, Mundo *world, Evento **extra) {
   Evento *proxEventoV, *proxEventoA;
   Node *heroiSaindo;
 
@@ -120,7 +124,7 @@ Evento *sai(int t, Heroi *h, Base *b, Mundo *world, Evento *extra) {
   proxEventoA->base = b;
 
   // Extra recebe o proximo evento avisa
-  extra = proxEventoA;
+  *extra = proxEventoA;
 
   return proxEventoV;
 }
@@ -141,3 +145,27 @@ Evento *viaja(int t, Heroi *h, Base *d, Mundo *world) {
 
   return proxEvento;
 }
+
+// int main(void) {
+//   Mundo *mundo;
+//   Evento extra;
+//   int tempo = 1;
+
+//   startMundo(&mundo);
+
+//   chega(tempo, mundo->Herois[0], mundo->bases[0]);
+
+//   espera(tempo, mundo->Herois[0], mundo->bases[0]);
+
+//   desiste(tempo, mundo->Herois[0], mundo);
+
+//   avisa(tempo, mundo->bases[0], mundo);
+
+//   entra(tempo, mundo->Herois[0], mundo->bases[0]);
+
+//   sai(tempo, mundo->Herois[0], mundo->bases[0], mundo, &extra);
+
+//   viaja(tempo, mundo->Herois[0], mundo->bases[0], mundo);
+
+//   return 0;
+// }

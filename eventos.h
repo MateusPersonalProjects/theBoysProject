@@ -18,7 +18,7 @@ Evento *avisa(int t, Base *b, Mundo *world);
 // Função entra retorna um evento
 Evento *entra(int t, Heroi *h, Base *b);
 
-Evento *sai(int t, Heroi *h, Base *b, Mundo *world, Evento *extra);
+Evento *sai(int t, Heroi *h, Base *b, Mundo *world, Evento **extra);
 
 // Função viaja retorna um evento
 Evento *viaja(int t, Heroi *h, Base *d, Mundo *world);
