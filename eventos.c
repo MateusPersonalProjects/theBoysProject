@@ -76,7 +76,7 @@ Evento *avisa(int t, Base *b, Mundo *world) {
   hRetirado = world->Herois[*idHeRetirado];
 
   // Inserimos o heroi no conjunto de presentes da base b
-  insertEndLL(&(b->presentes->elementos), hRetirado->id);
+  insertEndLL(&(b->presentes->elementos), hRetirado->id, NULL);
 
   // Inicializa o proximo evento entra
   inicializarEvento(&proxEvento, t, 4);
@@ -142,6 +142,20 @@ Evento *viaja(int t, Heroi *h, Base *d, Mundo *world) {
   inicializarEvento(&proxEvento, t + duracao, 0);
   proxEvento->heroi = h;
   proxEvento->base = d;
+
+  return proxEvento;
+}
+
+Evento *missao(int t, Missao *missao, Mundo *mundo) {
+  Evento *proxEvento;
+  LinkedList *distBases;
+
+  inicializarLL(&distBases);
+
+  for (int i = 0; i < N_BASES; i++)
+    insertEndLL(&distBases, distCartMissao(mundo->bases[i], missao), i);
+
+  sortLL(distBases);
 
   return proxEvento;
 }

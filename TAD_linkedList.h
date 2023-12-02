@@ -5,6 +5,7 @@
 // Define a estrutura de Nodos da Lista Encadeada
 typedef struct Node {
   int data;
+  int auxData;
   struct Node *next;
 } Node;
 
@@ -21,7 +22,7 @@ bool inicializarLL(LinkedList **head);
 bool isEmptyLL(LinkedList *head);
 
 // Insere um elemento no fim da lista duplamente encadeada
-void insertEndLL(LinkedList **head, int element);
+void insertEndLL(LinkedList **head, int element, int auxElement);
 
 // Printa toda a lista encadeada na tela
 void displayLL(LinkedList *head);

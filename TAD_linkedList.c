@@ -19,7 +19,7 @@ bool isEmptyLL(LinkedList *head) {
 }
 
 // Insere um elemento no fim da lista duplamente encadeada
-void insertEndLL(LinkedList **head, int element) {
+void insertEndLL(LinkedList **head, int element, int auxElement) {
   Node *auxNode, *new;
 
   // Cria um novo nodo para ser inserido
@@ -29,6 +29,7 @@ void insertEndLL(LinkedList **head, int element) {
   }
 
   new->data = element;
+  new->auxData = auxElement;
   new->next = NULL;
 
   // Caso a lista esteja vazia atribui o novo nodo ao inicio

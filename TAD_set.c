@@ -16,7 +16,7 @@ bool uniao(LinkedList *listOne, LinkedList *listTwo, LinkedList *result) {
   // Insere todos os elementos de listOne em result
   aux = listOne->start;
   for (int i = 0; i < listOne->size; i++) {
-    insertEndLL(&result, aux->data);
+    insertEndLL(&result, aux->data, NULL);
     aux = aux->next;
   }
 
@@ -24,7 +24,7 @@ bool uniao(LinkedList *listOne, LinkedList *listTwo, LinkedList *result) {
   aux = listTwo->start;
   for (int i = 0; i < listTwo->size; i++) {
     if (!searchLL(listOne, aux->data, &searched))
-      insertEndLL(&result, aux->data);
+      insertEndLL(&result, aux->data, NULL);
     aux = aux->next;
   }
   return true;
@@ -38,7 +38,7 @@ bool interseccao(LinkedList *listOne, LinkedList *listTwo, LinkedList *result) {
   aux = listOne->start;
   for (int i = 0; i < listOne->size; i++) {
     if (searchLL(listTwo, aux->data, &searched))
-      insertEndLL(&result, aux->data);
+      insertEndLL(&result, aux->data, NULL);
     aux = aux->next;
   }
   return true;

@@ -46,6 +46,7 @@ typedef struct missao {
 
 bool startMissao(Missao **missao, int id);
 
+int distCartMissao(Base *b, Missao *d);
 // ----------------------- DEFINE A ENTIDADE MUNDO -----------------------------
 typedef struct mundo {
   int nHerois;

@@ -113,6 +113,14 @@ bool startMissao(Missao **missao, int id) {
   return true;
 }
 
+int distCartMissao(Base *b, Missao *d) {
+  int distancia;
+  int xB = b->local[0], xD = d->local[0], yB = b->local[1], yD = d->local[1];
+
+  distancia = sqrt(((xD - xB) * (xD - xB)) + ((yD - yB) * (yD - yB)));
+  return distancia;
+}
+
 /*
  * Inicializa o mundo
  * Retorna true se foi possivel alocar memória, se não retorna false
