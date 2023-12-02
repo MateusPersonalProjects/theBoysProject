@@ -16,7 +16,7 @@ bool uniao(LinkedList *listOne, LinkedList *listTwo, LinkedList *result) {
   // Insere todos os elementos de listOne em result
   aux = listOne->start;
   for (int i = 0; i < listOne->size; i++) {
-    insertEndLL(&result, aux->data, NULL);
+    insertEndLL(&result, aux->data, 0);
     aux = aux->next;
   }
 
@@ -24,7 +24,21 @@ bool uniao(LinkedList *listOne, LinkedList *listTwo, LinkedList *result) {
   aux = listTwo->start;
   for (int i = 0; i < listTwo->size; i++) {
     if (!searchLL(listOne, aux->data, &searched))
-      insertEndLL(&result, aux->data, NULL);
+      insertEndLL(&result, aux->data, 0);
+    aux = aux->next;
+  }
+  return true;
+}
+
+// Realiza a união entre os conjuntos e o salv em result
+bool uniaoPlus(LinkedList *listOne, LinkedList *result) {
+  Node *aux, *searched;
+
+  // Insere os elementos de listOne que nao estao em result dentro de result
+  aux = listOne->start;
+  for (int i = 0; i < listOne->size; i++) {
+    if (!searchLL(result, aux->data, &searched))
+      insertEndLL(&result, aux->data, 0);
     aux = aux->next;
   }
   return true;
@@ -38,7 +52,7 @@ bool interseccao(LinkedList *listOne, LinkedList *listTwo, LinkedList *result) {
   aux = listOne->start;
   for (int i = 0; i < listOne->size; i++) {
     if (searchLL(listTwo, aux->data, &searched))
-      insertEndLL(&result, aux->data, NULL);
+      insertEndLL(&result, aux->data, 0);
     aux = aux->next;
   }
   return true;
@@ -107,10 +121,11 @@ bool duplicado(LinkedList *list) {
 //   startSet(&conjunto1);
 //   startSet(&conjunto2);
 
-//   for (int i = 0; i <= 10; i++) insertEndLL(&(conjunto1->elementos), i);
-//   for (int i = 5; i <= 10; i++) insertEndLL(&(conjunto2->elementos), i);
+//   for (int i = 0; i <= 10; i++) insertEndLL(&(conjunto1->elementos), i, 0);
+//   uniaoPlus(conjunto1->elementos, conjunto2->elementos);
 
 //   displayLL(conjunto1->elementos);
+//   printf("KLeber\n");
 //   displayLL(conjunto2->elementos);
 
 //   return 0;

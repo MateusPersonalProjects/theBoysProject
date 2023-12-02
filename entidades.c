@@ -32,7 +32,7 @@ bool startHeroi(Heroi **heroi, int id) {
   // Insere habilidades do conjunto de habilidades
   for (int i = 0; i < quantHab; i++) {
     hab = randomInteger(0, N_HABILIDADES);
-    insertEndLL(&(habilidades->elementos), hab);
+    insertEndLL(&(habilidades->elementos), hab, 0);
   }
 
   (*heroi)->habilidade = habilidades;
@@ -106,7 +106,7 @@ bool startMissao(Missao **missao, int id) {
   // Define as habilidades
   for (int i = 0; i < quantHab; i++) {
     hab = randomInteger(0, N_HABILIDADES);
-    insertEndLL(&(habilidades->elementos), hab);
+    insertEndLL(&(habilidades->elementos), hab, 0);
   }
 
   (*missao)->habilidades = habilidades;

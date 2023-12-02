@@ -76,7 +76,7 @@ Evento *avisa(int t, Base *b, Mundo *world) {
   hRetirado = world->Herois[*idHeRetirado];
 
   // Inserimos o heroi no conjunto de presentes da base b
-  insertEndLL(&(b->presentes->elementos), hRetirado->id, NULL);
+  insertEndLL(&(b->presentes->elementos), hRetirado->id, 0);
 
   // Inicializa o proximo evento entra
   inicializarEvento(&proxEvento, t, 4);
@@ -146,18 +146,85 @@ Evento *viaja(int t, Heroi *h, Base *d, Mundo *world) {
   return proxEvento;
 }
 
-Evento *missao(int t, Missao *missao, Mundo *mundo) {
-  Evento *proxEvento;
+bool missaoCheck(int t, LinkedList *distBases, Missao *missao, Mundo *mundo) {
+  LinkedList *habHerois;
+  Base *baseAtual;
+  Heroi *heroiAtual;
+  bool flag = false;
+  Node *walker;
+
+  inicializarLL(&habHerois);
+  // Verifica todas as bases
+  while (!isEmptyLL(distBases) && !flag) {
+    baseAtual = mundo->bases[distBases->start->auxData];
+
+    // Ponteiro para o node da linked list que possui o id do heroi atual
+    walker = baseAtual->presentes->elementos->start;
+
+    while (walker != NULL) {
+      heroiAtual = mundo->Herois[walker->data];
+      // Realiza a união das habilidades
+      uniaoPlus(heroiAtual->habilidade->elementos, habHerois);
+      // Passa para o proximo heroi dentro da base
+      walker = walker->next;
+    }
+
+    flag = contem(habHerois, missao->habilidades->elementos);
+
+    printf("%6d: MISSAO %d BASE %d: [", t, missao->id, baseAtual->id);
+    displayLL(habHerois);
+    printf("]\n");
+    // Limpa a lista de habHerois
+    while (!isEmptyLL(habHerois)) deleteNodeLL(habHerois, habHerois->start);
+
+    if (!flag)
+      // Retira a base da lista
+      deleteNodeLL(distBases, distBases->start);
+  }
+
+  free(habHerois);
+
+  return flag;
+}
+
+// Adiciona pontos de experiencia para todos os herois dentro de uma base
+void missaoExpAdder(Base *base, Mundo *mundo) {
+  Node *walkerHeroi;
+  Heroi *heroiAtual;
+
+  walkerHeroi = base->presentes->elementos->start;
+
+  while (walkerHeroi != NULL) {
+    heroiAtual = mundo->Herois[walkerHeroi->data];
+    (heroiAtual->exp)++;
+    walkerHeroi = walkerHeroi->next;
+  }
+}
+bool missao(int t, Missao *missao, Mundo *mundo) {
   LinkedList *distBases;
 
+  // Inicializa uma lista de bases
   inicializarLL(&distBases);
 
+  // Calcula o dist entre base e missao
   for (int i = 0; i < N_BASES; i++)
     insertEndLL(&distBases, distCartMissao(mundo->bases[i], missao), i);
 
+  // Ordena pela distancia
   sortLL(distBases);
 
-  return proxEvento;
+  // Verifica se é possivel realizar a missão
+  if (missaoCheck(t, distBases, missao, mundo)) {
+    missaoExpAdder(mundo->bases[distBases->start->auxData], mundo);
+    printf("%6d: MISSAO %d CUMPRIDA BASE %d HEROIS: [", t, missao->id,
+           distBases->start->auxData);
+    displayLL(mundo->bases[distBases->start->auxData]->presentes->elementos);
+    printf("]\n");
+  }
+  // Limpa a lista de bases
+  while (!isEmptyLL(distBases)) deleteNodeLL(distBases, distBases->start);
+  free(distBases);
+  return false;
 }
 
 // int main(void) {

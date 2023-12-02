@@ -72,7 +72,6 @@ bool searchLL(LinkedList *head, int element, Node **result) {
     }
     return false;
   } else {
-    printf("Lista Vazia!");
     return false;
   }
 }

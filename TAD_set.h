@@ -12,6 +12,7 @@ bool startSet(Set **conjunto);
 // Realiza a união entre os conjuntos e o salv em result
 bool uniao(LinkedList *listOne, LinkedList *listTwo, LinkedList *result);
 
+bool uniaoPlus(LinkedList *listOne, LinkedList *result);
 // Realiza a interseccao entre dois conjuntos e o salva em result
 bool interseccao(LinkedList *listOne, LinkedList *listTwo, LinkedList *result);
 

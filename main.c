@@ -150,6 +150,10 @@ int main(void) {
 
           printf("CHEGA %d\n", proxEvent->tempo);
           break;
+
+        // Trata evento missao
+        case 7:
+          break;
       }
     } else
       printf("\n");
