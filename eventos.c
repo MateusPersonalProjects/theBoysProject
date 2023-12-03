@@ -146,6 +146,9 @@ Evento *viaja(int t, Heroi *h, Base *d, Mundo *world) {
   return proxEvento;
 }
 
+/* Função responsavel por chegar se a missao pode ser realizada pelos herois de
+ * uma base Retorna true caso possa, caso contrario retorna false
+ */
 bool missaoCheck(int t, LinkedList *distBases, Missao *missao, Mundo *mundo) {
   LinkedList *habHerois;
   Base *baseAtual;
@@ -200,8 +203,10 @@ void missaoExpAdder(Base *base, Mundo *mundo) {
     walkerHeroi = walkerHeroi->next;
   }
 }
-bool missao(int t, Missao *missao, Mundo *mundo) {
+
+bool missao(int t, Missao *missao, Mundo *mundo, Evento **proxEvento) {
   LinkedList *distBases;
+  bool flag;
 
   // Inicializa uma lista de bases
   inicializarLL(&distBases);
@@ -213,18 +218,23 @@ bool missao(int t, Missao *missao, Mundo *mundo) {
   // Ordena pela distancia
   sortLL(distBases);
 
-  // Verifica se é possivel realizar a missão
-  if (missaoCheck(t, distBases, missao, mundo)) {
+  // Verifica se foi possivel realizar a missão
+  flag = missaoCheck(t, distBases, missao, mundo);
+
+  if (flag) {
     missaoExpAdder(mundo->bases[distBases->start->auxData], mundo);
     printf("%6d: MISSAO %d CUMPRIDA BASE %d HEROIS: [", t, missao->id,
            distBases->start->auxData);
     displayLL(mundo->bases[distBases->start->auxData]->presentes->elementos);
     printf("]\n");
+  } else {
+    inicializarEvento(proxEvento, (t + (24 * 60)), 7);
+    (*proxEvento)->missao = missao;
   }
   // Limpa a lista de bases
   while (!isEmptyLL(distBases)) deleteNodeLL(distBases, distBases->start);
   free(distBases);
-  return false;
+  return flag;
 }
 
 // int main(void) {

@@ -153,6 +153,11 @@ int main(void) {
 
         // Trata evento missao
         case 7:
+          if (!missao(relogioAtual, eventosFuturos->inicio->missao, mundo,
+                      &proxEvent)) {
+            deleteEvent(&eventosFuturos);
+            insertEventLef(&eventosFuturos, proxEvent);
+          }
           break;
       }
     } else

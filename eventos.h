@@ -23,3 +23,13 @@ Evento *sai(int t, Heroi *h, Base *b, Mundo *world, Evento **extra);
 // Função viaja retorna um evento
 Evento *viaja(int t, Heroi *h, Base *d, Mundo *world);
 
+/* Função responsavel por chegar se a missao pode ser realizada pelos herois de
+ * uma base Retorna true caso possa, caso contrario retorna false
+ */
+bool missaoCheck(int t, LinkedList *distBases, Missao *missao, Mundo *mundo); 
+
+// Adiciona pontos de experiencia para todos os herois dentro de uma base
+void missaoExpAdder(Base *base, Mundo *mundo);
+
+bool missao(int t, Missao *missao, Mundo *mundo, Evento **proxEvento);
+
