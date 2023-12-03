@@ -39,6 +39,12 @@ bool startHeroi(Heroi **heroi, int id) {
   return true;
 }
 
+// Free em todos os atributos de heroi
+void cleanHeroi(Heroi *heroi) {
+  cleanSet(heroi->habilidade);
+  free(heroi);
+}
+
 /*
  * Inicializa uma base
  * Retorna true se foi possivel alocar memória, se não retorna false
@@ -80,6 +86,13 @@ int distCart(Base *b, Base *d) {
 
   distancia = sqrt(((xD - xB) * (xD - xB)) + ((yD - yB) * (yD - yB)));
   return distancia;
+}
+
+// Free em todos os atributos de base
+void cleanBase(Base *base) {
+  cleanSet(base->presentes);
+  cleanQ(base->fila);
+  free(base);
 }
 /*
  * Inicializa uma missao
@@ -130,6 +143,11 @@ int logMissoesCumpridas(Mundo *mundo) {
   return result;
 }
 
+// Free em todos os atributos da missao
+void cleanMissao(Missao *missao) {
+  cleanSet(missao->habilidades);
+  free(missao);
+}
 /*
  * Inicializa o mundo
  * Retorna true se foi possivel alocar memória, se não retorna false
@@ -160,6 +178,15 @@ bool startMundo(Mundo **mundo) {
   return true;
 }
 
+// Free em todos os atribrutos do mundo
+void cleanMundo(Mundo *mundo) {
+  for (int i = 0; i < mundo->nHerois; i++) cleanHeroi(mundo->Herois[i]);
+
+  for (int i = 0; i < mundo->nBases; i++) cleanBase(mundo->bases[i]);
+
+  for (int i = 0; i < mundo->nMissoes; i++) cleanMissao(mundo->missoes[i]);
+  free(mundo);
+}
 // int main(void) {
 //   // ------------------ Teste Herois --------------------
 //   // Heroi *osHerois[N_HEROIS];

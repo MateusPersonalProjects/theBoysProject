@@ -83,6 +83,12 @@ bool deleteEvent(Lef **lef) {
   return true;
 }
 
+// Free em todos os elementos da lista de eventos futuros
+void cleanLef(Lef *lef) {
+  while (!isEmptyLef(lef)) deleteEvent(&lef);
+  free(lef);
+}
+
 // int main(void) {
 //   Lef *lista;
 //   Evento *eventos[10], *aux, *aux2;

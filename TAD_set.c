@@ -115,6 +115,12 @@ bool duplicado(LinkedList *list) {
   return status;
 }
 
+// Free em todos os elementos do conjunto
+void cleanSet(Set *set) {
+  cleanLL(set->elementos);
+  free(set);
+}
+
 // int main(void) {
 //   Set *conjunto1, *conjunto2;
 

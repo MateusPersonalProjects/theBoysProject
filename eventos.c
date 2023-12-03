@@ -244,6 +244,9 @@ bool missao(int t, Missao *missao, Mundo *mundo, Evento **proxEvento) {
   return flag;
 }
 
+// Um asteroide cai no mundo e destroi tudo
+void asteroide(Mundo *mundo) { cleanMundo(mundo); }
+
 // int main(void) {
 //   Mundo *mundo;
 //   Evento extra;

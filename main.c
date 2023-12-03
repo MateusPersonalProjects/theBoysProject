@@ -223,5 +223,7 @@ int main(void) {
 
   // FREE
 
+  cleanLef(eventosFuturos);
+  asteroide(mundo);
   return 0;
 }

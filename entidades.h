@@ -23,6 +23,7 @@ typedef struct heroi {
 
 bool startHeroi(Heroi **heroi, int id);
 
+void cleanHeroi(Heroi *heroi);
 // -------------------------- DEFINE A ENTIDADE BASE --------------------------
 typedef struct base {
   int id;
@@ -37,6 +38,8 @@ bool startBase(Base **base, int id);
 bool baseCheia(Base *b);
 
 int distCart(Base *b, Base *d);
+
+void cleanBase(Base *base);
 // -------------------------- DEFINE A ENTIDADE MISSAO -------------------------
 typedef struct missao {
   int id;
@@ -48,6 +51,8 @@ typedef struct missao {
 bool startMissao(Missao **missao, int id);
 
 int distCartMissao(Base *b, Missao *d);
+
+void cleanMissao(Missao *missao);
 // ----------------------- DEFINE A ENTIDADE MUNDO -----------------------------
 typedef struct mundo {
   int nHerois;
@@ -64,3 +69,5 @@ typedef struct mundo {
 bool startMundo(Mundo **mundo);
 
 int logMissoesCumpridas(Mundo *mundo);
+
+void cleanMundo(Mundo *mundo);

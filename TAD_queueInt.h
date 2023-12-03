@@ -20,3 +20,5 @@ void displayQ(struct queue *queue);
 bool showFrontQ(struct queue *queue, int *member);
 
 bool jumpLineQ(struct queue *queue, int member, int position, int tam);
+
+void cleanQ(Queue *q);

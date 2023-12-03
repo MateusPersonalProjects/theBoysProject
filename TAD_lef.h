@@ -45,3 +45,5 @@ void insertEventLef(Lef **lef, Evento *evento);
 // Retorna true se foi possivel deletar o evento
 // Se não retorna false
 bool deleteEvent(Lef **lef);
+
+void cleanLef(Lef *lef);

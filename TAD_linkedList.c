@@ -154,6 +154,12 @@ void sortLL(LinkedList *head) {
   }
 }
 
+// Free em todos os componentes da linkedList
+void cleanLL(LinkedList *head) {
+  while (!isEmptyLL(head)) deleteNodeLL(head, head->start);
+  free(head);
+}
+
 // int main(void) {
 //   LinkedList *teste;
 

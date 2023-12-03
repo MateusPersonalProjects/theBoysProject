@@ -43,3 +43,5 @@ void swapLL(LinkedList *head, Node *one, Node *two);
 // Ordena uma ou lista encadeada
 // Utiliza selection sort
 void sortLL(LinkedList *head);
+
+void cleanLL(LinkedList *head);

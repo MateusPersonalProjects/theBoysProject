@@ -105,6 +105,12 @@ bool jumpLineQ(struct queue *queue, int member, int position, int tam) {
   }
 }
 
+// Free em todos os elementos da fila
+void cleanQ(Queue *q) {
+  free(q->line);
+  free(q);
+}
+
 // int main(void) {
 //   Queue *fila;
 

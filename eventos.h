@@ -33,3 +33,4 @@ void missaoExpAdder(Base *base, Mundo *mundo);
 
 bool missao(int t, Missao *missao, Mundo *mundo, Evento **proxEvento);
 
+void asteroide(Mundo *mundo);

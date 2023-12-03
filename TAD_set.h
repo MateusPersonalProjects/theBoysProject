@@ -30,3 +30,5 @@ void imprime(LinkedList *list);
 bool igual(LinkedList *listOne, LinkedList *listTwo);
 
 bool duplicado(LinkedList *list);
+
+void cleanSet(Set *set);
