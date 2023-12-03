@@ -6,8 +6,7 @@ bool inicializarLL(LinkedList **head) {
     (*head)->size = 0;
     (*head)->start = NULL;
     return true;
-  } else
-    printf("Erro Fatal - não foi possível alocar memória!");
+  }
   return false;
 }
 
@@ -24,7 +23,6 @@ void insertEndLL(LinkedList **head, int element, int auxElement) {
 
   // Cria um novo nodo para ser inserido
   if ((new = (Node *)malloc(sizeof(Node))) == NULL) {
-    printf("Erro de alocação de memória!");
     return;
   }
 
@@ -53,8 +51,7 @@ void displayLL(LinkedList *head) {
       auxNode = auxNode->next;
     }
     printf("%d ", auxNode->data);
-  } else
-    printf("Lista Vazia!");
+  }
 }
 
 /* Procura um elemento na lista linkada

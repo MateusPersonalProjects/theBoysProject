@@ -52,8 +52,8 @@ int main(void) {
 
     Base *avisaBase;
 
-    printf("%6d: ", relogioAtual);
     if (relogioAtual == eventosFuturos->inicio->tempo) {
+      printf("%6d: ", relogioAtual);
       switch (tipoEvento) {
         // Trata evento chega
         case 0:
@@ -162,15 +162,20 @@ int main(void) {
 
         // Trata evento missao
         case 7:
+          printf("MISSAO %d HAB REQ: [", eventosFuturos->inicio->missao->id);
+          displayLL(eventosFuturos->inicio->missao->habilidades->elementos);
+          printf("]\n");
           if (!missao(relogioAtual, eventosFuturos->inicio->missao, mundo,
                       &proxEvent)) {
+            printf("%6d: MISSAO %d IMPOSSIVEL\n", relogioAtual,
+                   eventosFuturos->inicio->missao->id);
             deleteEvent(&eventosFuturos);
             insertEventLef(&eventosFuturos, proxEvent);
           }
+          deleteEvent(&eventosFuturos);
           break;
       }
-    } else
-      printf("\n");
+    }
     if (eventosFuturos->inicio->tempo != relogioAtual) relogioAtual++;
   }
   printf("RODOU!\n");
