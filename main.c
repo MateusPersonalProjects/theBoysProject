@@ -33,6 +33,15 @@ int main(void) {
     insertEventLef(&eventosFuturos, evento);
   }
 
+  for (int i = 0; i < mundo->nMissoes; i++) {
+    Evento *ev;
+    int tempo = randomInteger(0, T_FIM_DO_MUNDO);
+
+    inicializarEvento(&ev, tempo, 7);
+    ev->missao = mundo->missoes[i];
+    insertEventLef(&eventosFuturos, ev);
+  }
+
   int relogioAtual = T_INICIO;
 
   while (relogioAtual <= T_FIM_DO_MUNDO) {
