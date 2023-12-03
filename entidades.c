@@ -97,7 +97,7 @@ bool startMissao(Missao **missao, int id) {
   (*missao)->id = id;
   (*missao)->local[0] = randomInteger(0, N_TAMANHO_MUNDO - 1);
   (*missao)->local[1] = randomInteger(0, N_TAMANHO_MUNDO - 1);
-
+  (*missao)->status = false;
   // Aloca memoria para o conjunto de habilidades
   if (!startSet(&habilidades)) return false;
 
@@ -119,6 +119,15 @@ int distCartMissao(Base *b, Missao *d) {
 
   distancia = sqrt(((xD - xB) * (xD - xB)) + ((yD - yB) * (yD - yB)));
   return distancia;
+}
+
+// Retorna a quantidade de missoes cumpridas
+int logMissoesCumpridas(Mundo *mundo) {
+  int result = 0;
+  for (int i = 0; i < N_MISSOES; i++) {
+    if (mundo->missoes[i]->status) result++;
+  }
+  return result;
 }
 
 /*

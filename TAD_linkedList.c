@@ -153,3 +153,22 @@ void sortLL(LinkedList *head) {
     if (minLL(aux, &min)) swapLL(head, aux, min);
   }
 }
+
+// int main(void) {
+//   LinkedList *teste;
+
+//   inicializarLL(&teste);
+
+//   for (int i = 10000; i > 0; i--) insertEndLL(&teste, i, 0);
+//   for (int i = 10001; i < 20000; i++) insertEndLL(&teste, i, 0);
+//   displayLL(teste);
+//   printf("\n");
+//   sortLL(teste);
+//   displayLL(teste);
+//   printf("\n");
+//   while (!isEmptyLL(teste)) {
+//     printf("Node %d \n", teste->start->data);
+//     deleteNodeLL(teste, teste->start);
+//   }
+//   return 0;
+// }

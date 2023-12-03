@@ -42,6 +42,7 @@ typedef struct missao {
   int id;
   Set *habilidades;
   int local[2];
+  bool status;
 } Missao;
 
 bool startMissao(Missao **missao, int id);
@@ -61,3 +62,5 @@ typedef struct mundo {
 } Mundo;
 
 bool startMundo(Mundo **mundo);
+
+int logMissoesCumpridas(Mundo *mundo);

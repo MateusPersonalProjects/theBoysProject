@@ -213,16 +213,23 @@ bool missao(int t, Missao *missao, Mundo *mundo, Evento **proxEvento) {
 
   // Calcula o dist entre base e missao
   for (int i = 0; i < N_BASES; i++)
-    insertEndLL(&distBases, distCartMissao(mundo->bases[i], missao), i);
+    insertEndLL(&distBases, (int)distCartMissao(mundo->bases[i], missao), i);
 
   // Ordena pela distancia
+  // printf("\nAntes de ordenar\n");
   // sortLL(distBases);
+  // printf("\nOrdenado\n");
 
   // Verifica se foi possivel realizar a missão
   flag = missaoCheck(t, distBases, missao, mundo);
 
   if (flag) {
+    // Muda status da missao para cumprida
+    missao->status = true;
+
+    // Adiciona experiencia para todos os herois da base
     missaoExpAdder(mundo->bases[distBases->start->auxData], mundo);
+
     printf("%6d: MISSAO %d CUMPRIDA BASE %d HEROIS: [", t, missao->id,
            distBases->start->auxData);
     displayLL(mundo->bases[distBases->start->auxData]->presentes->elementos);

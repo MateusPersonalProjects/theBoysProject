@@ -20,6 +20,11 @@ int main(void) {
 
   /* ---------------- EVENTOS INICIAIS ---------------------- */
 
+  // Cria evento do fim do mundo e o coloca na lista de eventos futuros
+  Evento *fim;
+  inicializarEvento(&fim, T_FIM_DO_MUNDO, 8);
+  insertEventLef(&eventosFuturos, fim);
+
   // Herois brotam do void e vão para as bases
   for (int i = 0; i < mundo->nHerois; i++) {
     Evento *evento;
@@ -33,6 +38,7 @@ int main(void) {
     insertEventLef(&eventosFuturos, evento);
   }
 
+  // Insere as missoes na lista de eventos futuros
   for (int i = 0; i < mundo->nMissoes; i++) {
     Evento *ev;
     int tempo = randomInteger(0, T_FIM_DO_MUNDO);
@@ -42,9 +48,13 @@ int main(void) {
     insertEventLef(&eventosFuturos, ev);
   }
 
+  /* ---------------------- INICIO DA SIMULAÇÃO ------------------------- */
   int relogioAtual = T_INICIO;
+  bool flagEnd = false;
+  int missoesCumpridas;
+  float tentivasMissao, porcentMissao, mediaMissao;
 
-  while (relogioAtual <= T_FIM_DO_MUNDO) {
+  while (!flagEnd) {
     int tipoEvento = eventosFuturos->inicio->tipo;
     Evento *proxEvent, *proxEventExtra;
 
@@ -162,6 +172,9 @@ int main(void) {
 
         // Trata evento missao
         case 7:
+          // Adiciona uma tentativa de resolução de missao
+          tentivasMissao++;
+
           printf("MISSAO %d HAB REQ: [", eventosFuturos->inicio->missao->id);
           displayLL(eventosFuturos->inicio->missao->habilidades->elementos);
           printf("]\n");
@@ -171,14 +184,44 @@ int main(void) {
                    eventosFuturos->inicio->missao->id);
             deleteEvent(&eventosFuturos);
             insertEventLef(&eventosFuturos, proxEvent);
+          } else
+            deleteEvent(&eventosFuturos);
+          break;
+
+        // Trata o evento do fim do mundo
+        case 8:
+          printf("FIM\n");
+          printf("==================================================\n");
+          printf("\tEmitindo relatório\n\n");
+          for (int i = 0; i < mundo->nHerois; i++) {
+            printf("HEROI %2d PAC %3d VEL %4d EXP %4d HABS [",
+                   mundo->Herois[i]->id, mundo->Herois[i]->paciencia,
+                   mundo->Herois[i]->velocidade, mundo->Herois[i]->exp);
+            displayLL(mundo->Herois[i]->habilidade->elementos);
+            printf("]\n");
           }
+          printf("\n\n");
+          missoesCumpridas = logMissoesCumpridas(mundo);
+
+          porcentMissao =
+              (float)(missoesCumpridas * 100) / (float)mundo->nMissoes;
+          mediaMissao = (float)tentivasMissao / (float)mundo->nMissoes;
+
+          printf(
+              "%d/%d MISSOES CUMPRIDAS (%.2f%%), MEDIA %.2f TENTATIVAS/MISSAO",
+              missoesCumpridas, N_MISSOES, porcentMissao, mediaMissao);
           deleteEvent(&eventosFuturos);
+          flagEnd = true;
           break;
       }
     }
+
+    // Se proximo evento programado não acontecer no tempo atual avançamos o
+    // relogio
     if (eventosFuturos->inicio->tempo != relogioAtual) relogioAtual++;
   }
-  printf("RODOU!\n");
+
+  // FREE
 
   return 0;
 }
