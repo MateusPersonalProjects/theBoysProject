@@ -88,32 +88,3 @@ void cleanLef(Lef *lef) {
   while (!isEmptyLef(lef)) deleteEvent(&lef);
   free(lef);
 }
-
-// int main(void) {
-//   Lef *lista;
-//   Evento *eventos[10], *aux, *aux2;
-
-//   inicializarLef(&lista);
-//   inicializarEvento(&aux, 5, 2);
-
-//   insertEventLef(&lista, aux);
-
-//   inicializarEvento(&aux2, 2, 2);
-
-//   insertEventLef(&lista, aux2);
-
-//   /* printf("%d %d", lista->inicio->tempo, lista->inicio->tipo); */
-//   for (int i = 0; i < 10; i++) {
-//     inicializarEvento(&eventos[i], i * 2, i);
-//     insertEventLef(&lista, eventos[i]);
-//   }
-
-//   deleteEvent(&lista);
-//   aux = lista->inicio;
-//   while (aux != NULL) {
-//     printf("%d ", aux->tempo);
-//     aux = aux->prox;
-//   }
-
-//   return 0;
-// }

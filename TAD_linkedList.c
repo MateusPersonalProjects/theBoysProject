@@ -41,6 +41,40 @@ void insertEndLL(LinkedList **head, int element, int auxElement) {
   ((*head)->size)++;
 }
 
+// Insere de forma ordenada numa Linked List
+bool insertOrdLL(LinkedList **head, int data, int auxData) {
+  Node *new, *aux, *auxProx;
+  new = (Node *)malloc(sizeof(Node));
+  if (new == NULL) return false;
+  new->data = data;
+  new->auxData = auxData;
+  new->next = NULL;
+
+  if (isEmptyLL(*head))
+    (*head)->start = new;
+  else {
+    aux = (*head)->start;
+
+    // Tratando caso do inicio
+    if (new->data <= aux->data) {
+      (*head)->start = new;
+      new->next = aux;
+    } else {
+      while ((aux->next != NULL) && (new->data >= (aux->next)->data)) {
+        aux = aux->next;
+      }
+      if (aux->next == NULL)
+        aux->next = new;
+      else {
+        auxProx = aux->next;
+        aux->next = new;
+        new->next = auxProx;
+      }
+    }
+  }
+  ((*head)->size)++;
+  return true;
+}
 // Printa toda a lista encadeada na tela
 void displayLL(LinkedList *head) {
   if (!isEmptyLL(head)) {
@@ -159,22 +193,3 @@ void cleanLL(LinkedList *head) {
   while (!isEmptyLL(head)) deleteNodeLL(head, head->start);
   free(head);
 }
-
-// int main(void) {
-//   LinkedList *teste;
-
-//   inicializarLL(&teste);
-
-//   for (int i = 10000; i > 0; i--) insertEndLL(&teste, i, 0);
-//   for (int i = 10001; i < 20000; i++) insertEndLL(&teste, i, 0);
-//   displayLL(teste);
-//   printf("\n");
-//   sortLL(teste);
-//   displayLL(teste);
-//   printf("\n");
-//   while (!isEmptyLL(teste)) {
-//     printf("Node %d \n", teste->start->data);
-//     deleteNodeLL(teste, teste->start);
-//   }
-//   return 0;
-// }

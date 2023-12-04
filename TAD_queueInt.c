@@ -110,13 +110,3 @@ void cleanQ(Queue *q) {
   free(q->line);
   free(q);
 }
-
-// int main(void) {
-//   Queue *fila;
-
-//   startQueue(&fila, 10);
-
-//   for (int i = 0; i < 10; i++) emplaceQ(fila, i, 10);
-//   displayQ(fila);
-//   return 0;
-// }

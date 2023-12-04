@@ -24,6 +24,8 @@ bool isEmptyLL(LinkedList *head);
 // Insere um elemento no fim da lista duplamente encadeada
 void insertEndLL(LinkedList **head, int element, int auxElement);
 
+// Insere de forma ordenada em uma Linked List
+bool insertOrdLL(LinkedList **head, int data, int auxData);
 // Printa toda a lista encadeada na tela
 void displayLL(LinkedList *head);
 

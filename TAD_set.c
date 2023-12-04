@@ -120,19 +120,3 @@ void cleanSet(Set *set) {
   cleanLL(set->elementos);
   free(set);
 }
-
-// int main(void) {
-//   Set *conjunto1, *conjunto2;
-
-//   startSet(&conjunto1);
-//   startSet(&conjunto2);
-
-//   for (int i = 0; i <= 10; i++) insertEndLL(&(conjunto1->elementos), i, 0);
-//   uniaoPlus(conjunto1->elementos, conjunto2->elementos);
-
-//   displayLL(conjunto1->elementos);
-//   printf("KLeber\n");
-//   displayLL(conjunto2->elementos);
-
-//   return 0;
-// }

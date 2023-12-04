@@ -164,6 +164,7 @@ bool missaoCheck(int t, LinkedList *distBases, Missao *missao, Mundo *mundo) {
     // Ponteiro para o node da linked list que possui o id do heroi atual
     walker = baseAtual->presentes->elementos->start;
 
+    // Loop responsavel por unir todas as habilidades dos herois de uma base
     while (walker != NULL) {
       heroiAtual = mundo->Herois[walker->data];
       // Realiza a união das habilidades
@@ -204,6 +205,8 @@ void missaoExpAdder(Base *base, Mundo *mundo) {
   }
 }
 
+// Função missao retorna true se foi possivel realizar a missao caso contrario
+// retorna false
 bool missao(int t, Missao *missao, Mundo *mundo, Evento **proxEvento) {
   LinkedList *distBases;
   bool flag;
@@ -213,12 +216,7 @@ bool missao(int t, Missao *missao, Mundo *mundo, Evento **proxEvento) {
 
   // Calcula o dist entre base e missao
   for (int i = 0; i < N_BASES; i++)
-    insertEndLL(&distBases, (int)distCartMissao(mundo->bases[i], missao), i);
-
-  // Ordena pela distancia
-  // printf("\nAntes de ordenar\n");
-  // sortLL(distBases);
-  // printf("\nOrdenado\n");
+    insertOrdLL(&distBases, distCartMissao(mundo->bases[i], missao), i);
 
   // Verifica se foi possivel realizar a missão
   flag = missaoCheck(t, distBases, missao, mundo);
@@ -234,7 +232,9 @@ bool missao(int t, Missao *missao, Mundo *mundo, Evento **proxEvento) {
            distBases->start->auxData);
     displayLL(mundo->bases[distBases->start->auxData]->presentes->elementos);
     printf("]\n");
-  } else {
+  }
+  // Caso a missao não for cumprida um evento é criado e retornado via parametro
+  else {
     inicializarEvento(proxEvento, (t + (24 * 60)), 7);
     (*proxEvento)->missao = missao;
   }
@@ -246,27 +246,3 @@ bool missao(int t, Missao *missao, Mundo *mundo, Evento **proxEvento) {
 
 // Um asteroide cai no mundo e destroi tudo
 void asteroide(Mundo *mundo) { cleanMundo(mundo); }
-
-// int main(void) {
-//   Mundo *mundo;
-//   Evento extra;
-//   int tempo = 1;
-
-//   startMundo(&mundo);
-
-//   chega(tempo, mundo->Herois[0], mundo->bases[0]);
-
-//   espera(tempo, mundo->Herois[0], mundo->bases[0]);
-
-//   desiste(tempo, mundo->Herois[0], mundo);
-
-//   avisa(tempo, mundo->bases[0], mundo);
-
-//   entra(tempo, mundo->Herois[0], mundo->bases[0]);
-
-//   sai(tempo, mundo->Herois[0], mundo->bases[0], mundo, &extra);
-
-//   viaja(tempo, mundo->Herois[0], mundo->bases[0], mundo);
-
-//   return 0;
-// }

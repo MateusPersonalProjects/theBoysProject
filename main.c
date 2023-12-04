@@ -16,13 +16,17 @@ int main(void) {
   Lef *eventosFuturos;
   if (!inicializarLef(&eventosFuturos)) {
     printf("Erro Fatal! Impossivel alocar memória.\n");
+    return 1;
   }
 
   /* ---------------- EVENTOS INICIAIS ---------------------- */
 
   // Cria evento do fim do mundo e o coloca na lista de eventos futuros
   Evento *fim;
-  inicializarEvento(&fim, T_FIM_DO_MUNDO, 8);
+  if (!inicializarEvento(&fim, T_FIM_DO_MUNDO, 8)) {
+    printf("Erro Fatal! Impossivel alocar memória.\n");
+    return 1;
+  }
   insertEventLef(&eventosFuturos, fim);
 
   // Herois brotam do void e vão para as bases
@@ -32,7 +36,10 @@ int main(void) {
     (mundo->Herois[i])->baseID = randomInteger(0, (mundo->nBases) - 1);
 
     // Cria o evento da chegada no heroi na base
-    inicializarEvento(&evento, tempo, 0);
+    if (!inicializarEvento(&evento, tempo, 0)) {
+      printf("Erro Fatal! Impossivel alocar memória.\n");
+      return 1;
+    }
     evento->heroi = mundo->Herois[i];
     evento->base = mundo->bases[(mundo->Herois[i])->baseID];
     insertEventLef(&eventosFuturos, evento);
@@ -43,7 +50,10 @@ int main(void) {
     Evento *ev;
     int tempo = randomInteger(0, T_FIM_DO_MUNDO);
 
-    inicializarEvento(&ev, tempo, 7);
+    if (!inicializarEvento(&ev, tempo, 7)) {
+      printf("Erro Fatal! Impossivel alocar memória.\n");
+      return 1;
+    }
     ev->missao = mundo->missoes[i];
     insertEventLef(&eventosFuturos, ev);
   }
