@@ -101,7 +101,7 @@ Evento *entra(int t, Heroi *h, Base *b) {
 }
 
 Evento *sai(int t, Heroi *h, Base *b, Mundo *world, Evento **extra) {
-  Evento *proxEventoV, *proxEventoA;
+  Evento *proxEventoV;
   Node *heroiSaindo;
 
   // Pega-se o id de uma base aleatorio dentro do mundo
@@ -119,12 +119,9 @@ Evento *sai(int t, Heroi *h, Base *b, Mundo *world, Evento **extra) {
   proxEventoV->base = world->bases[randomBase];
 
   // Inicializa o proximo evento avisa
-  inicializarEvento(&proxEventoA, t, 3);
-  proxEventoA->heroi = h;
-  proxEventoA->base = b;
-
-  // Extra recebe o proximo evento avisa
-  *extra = proxEventoA;
+  inicializarEvento(extra, t, 3);
+  (*extra)->heroi = h;
+  (*extra)->base = b;
 
   return proxEventoV;
 }

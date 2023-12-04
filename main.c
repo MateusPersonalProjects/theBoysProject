@@ -68,8 +68,6 @@ int main(void) {
     int tipoEvento = eventosFuturos->inicio->tipo;
     Evento *proxEvent, *proxEventExtra;
 
-    proxEventExtra = (Evento *)malloc(sizeof(Evento));
-
     Base *avisaBase;
 
     if (relogioAtual == eventosFuturos->inicio->tempo) {
@@ -200,9 +198,9 @@ int main(void) {
 
         // Trata o evento do fim do mundo
         case 8:
-          printf("FIM\n");
+          printf("FIM\n\n");
           printf("==================================================\n");
-          printf("\tEmitindo relatório\n\n");
+          printf("\t\tEmitindo relatório\n\n");
           for (int i = 0; i < mundo->nHerois; i++) {
             printf("HEROI %2d PAC %3d VEL %4d EXP %4d HABS [",
                    mundo->Herois[i]->id, mundo->Herois[i]->paciencia,
